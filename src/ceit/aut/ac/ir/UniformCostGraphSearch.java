@@ -4,15 +4,14 @@ import java.util.ArrayList;
 
 public class UniformCostGraphSearch extends Problem {
     private Node root;
-    private int pathCost;
-    private ArrayList<Edge> frontierPath;
     private ArrayList<Node> openList;
     private ArrayList<Node> closedList;
+    private int frontiersNum;
 
     public UniformCostGraphSearch(Graph graph) {
         super(graph);
         root = super.initialNode;
-        pathCost = super.pathCost;
+        frontiersNum = 0;
         openList = new ArrayList<>();
         closedList = new ArrayList<>();
 
@@ -20,7 +19,7 @@ public class UniformCostGraphSearch extends Problem {
 
     public void search() {
         openList.add(root);
-
+        frontiersNum++;
         while (true) {
 
             if (openList.size() == 0) {
@@ -30,8 +29,9 @@ public class UniformCostGraphSearch extends Problem {
                 sort(openList);
                 Node temp = openList.remove(0);
                 if (goalTest(temp)) {
-                   printValues(temp);
-                   return;
+                    printValues(temp);
+                    System.out.println(setPathCost(super.path));
+                    return;
 
                 } else {
                     closedList.add(temp);
@@ -66,6 +66,7 @@ public class UniformCostGraphSearch extends Problem {
                             Edge currentEdge = temp.connections.get(i);
                             child.cost = temp.cost + stepCost(child.parentNode, currentEdge, child);
                             openList.add(child);
+                            frontiersNum++;
 
                         }
                     }
@@ -78,10 +79,17 @@ public class UniformCostGraphSearch extends Problem {
     }
 
     public void printValues(Node goal) {
-        for (int i = 0; i < closedList.size(); i++) {
-            System.out.println(closedList.get(i).name + " " + closedList.get(i).cost);
+        Node parent = goal;
+        System.out.println("Frontiers: " + frontiersNum);
+        System.out.println("Explored : " + closedList.size());
+        while (parent != root) {
+            super.path.add(parent);
+            parent = parent.parentNode;
         }
-        System.out.println(goal.name+" "+goal.cost);
+        super.path.add(root);
+        for (int i = path.size() - 1; i >= 0; i--) {
+            System.out.println(path.get(i).name);
+        }
     }
 
     void sort(ArrayList<Node> list) {

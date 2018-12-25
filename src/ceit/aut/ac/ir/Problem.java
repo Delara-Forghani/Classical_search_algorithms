@@ -6,11 +6,13 @@ import java.util.ArrayList;
 public class Problem {
     public Node initialNode;
     public Node goal;
-    public ArrayList<Edge> path;
+    public ArrayList<Node> path;
     public int pathCost;
 
     public Problem(Graph graph) {
         initialNode = graph.getNode("Arad");
+        initialNode.parentNode = initialNode;
+        initialNode.cost = 0;
         goal = graph.getNode("Bucharest");
         path = new ArrayList<>();
         pathCost = 0;
@@ -33,7 +35,6 @@ public class Problem {
 
     public Node result(Node currentState, Edge action) {
         if (currentState.connections.contains(action)) {
-            path.add(action);
             return action.end;
         }
         return null;
@@ -51,18 +52,15 @@ public class Problem {
             if (firstState.connections.get(i).cost == action.cost
                     && firstState.connections.get(i).end.name.equals(action.end.name) &&
                     action.end.name.equals(secondState.name)) {
-                return firstState.connections.get(i).cost;
+                return action.cost;
 
             }
         }
         return 0;
     }
 
-    public int pathCost(ArrayList<Edge> path) {
-        pathCost = 0;
-        for (int i = 0; i < path.size(); i++) {
-            pathCost += path.get(i).cost;
-        }
+    public int setPathCost(ArrayList<Node> path) {
+        pathCost = path.get(0).cost;
         return pathCost;
     }
 

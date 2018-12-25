@@ -1,6 +1,6 @@
 package ceit.aut.ac.ir;
 
-import java.io.*;
+
 import java.util.ArrayList;
 
 public class AStarGraphSearch extends Problem {
@@ -31,49 +31,48 @@ public class AStarGraphSearch extends Problem {
                 sort(openList);
                 Node temp = openList.remove(0);
                 if (goalTest(temp)) {
-                    System.out.println(temp.name);
+                    printValues(temp);
+                    System.out.println("Arrived in Bucharest");
                     return;
 
-                }
-//                    if (temp.name.equals("Pitesti")) {
-//
-//                    }
-                System.out.println(temp.name);
-                closedList.add(temp);
-                boolean frontierExist;
-                boolean exploredExist;
-                for (int i = 0; i < temp.connections.size(); i++) {
-                    frontierExist = false;
-                    exploredExist = false;
-                    Node child = temp.connections.get(i).end;
+                } else {
 
-                    for (int j = 0; j < openList.size(); j++) {
-                        if (openList.get(j).name.equals(child.name)) {
-                            int cost = temp.cost + temp.connections.get(i).cost;
-                            if (openList.get(j).cost > cost) {
-                                openList.get(j).parentNode = temp;
-                                openList.get(j).cost = cost;
+                    closedList.add(temp);
+                    boolean frontierExist;
+                    boolean exploredExist;
+                    for (int i = 0; i < temp.connections.size(); i++) {
+                        frontierExist = false;
+                        exploredExist = false;
+                        Node child = temp.connections.get(i).end;
 
+                        for (int j = 0; j < openList.size(); j++) {
+                            if (openList.get(j).name.equals(child.name)) {
+                                int cost = temp.cost + temp.connections.get(i).cost;
+                                if (openList.get(j).cost > cost) {
+                                    openList.get(j).parentNode = temp;
+                                    openList.get(j).cost = cost;
+
+                                }
+                                frontierExist = true;
+                                break;
                             }
-                            frontierExist = true;
-                            break;
                         }
-                    }
 
-                    for (int j = 0; j < closedList.size(); j++) {
-                        if (closedList.get(j).name.equals(child.name)) {
-                            exploredExist = true;
-                            break;
+                        for (int j = 0; j < closedList.size(); j++) {
+                            if (closedList.get(j).name.equals(child.name)) {
+                                exploredExist = true;
+                                break;
+                            }
                         }
-                    }
-                    if (!frontierExist && !exploredExist) {
+                        if (!frontierExist && !exploredExist) {
 
-                        child.parentNode = temp;
-                        Edge currentEdge = temp.connections.get(i);
-                        child.cost = temp.cost + stepCost(child.parentNode, currentEdge, child);
-                        openList.add(child);
+                            child.parentNode = temp;
+                            Edge currentEdge = temp.connections.get(i);
+                            child.cost = temp.cost + stepCost(child.parentNode, currentEdge, child);
+                            openList.add(child);
 
 
+                        }
                     }
                 }
             }
@@ -96,6 +95,14 @@ public class AStarGraphSearch extends Problem {
             }
             frontiers.set(j + 1, key);
         }
+    }
+
+    public void printValues(Node goal) {
+        for (int i = 0; i < closedList.size(); i++) {
+            int f_value=closedList.get(i).cost+closedList.get(i).getHeuristic();
+            System.out.println(closedList.get(i).name + " " + f_value);
+        }
+        System.out.println(goal.name+" "+goal.cost);
     }
 
 

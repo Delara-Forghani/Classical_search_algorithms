@@ -14,12 +14,13 @@ public class Node {
         this.name = name;
         connections = new ArrayList<>();
         heuristic = 0;
+        this.cost = 0;
     }
 
     public void addAction(Node fatherName, Node childName, int cost) {
         connections.add(new Edge(fatherName, childName, cost));
-        childName.parentNode = fatherName;
-        this.cost = 0;
+        //childName.parentNode = fatherName;
+
 
 
     }

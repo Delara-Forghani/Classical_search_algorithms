@@ -11,6 +11,10 @@ public class Edge {
         this.cost = cost;
     }
 
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
     public Node getEnd() {
         return end;
     }

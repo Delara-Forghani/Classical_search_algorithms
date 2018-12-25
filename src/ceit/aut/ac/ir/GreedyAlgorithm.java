@@ -5,28 +5,24 @@ import java.util.ArrayList;
 
 public class GreedyAlgorithm extends Problem {
     private Node root;
-    private int pathCost;
     private ArrayList<Node> openList;
     private ArrayList<Node> closedList;
+    private int frontiersNum;
 
     public GreedyAlgorithm(Graph graph) {
         super(graph);
         root = super.initialNode;
-        pathCost = super.pathCost;
+        frontiersNum = 0;
         openList = new ArrayList<>();
         closedList = new ArrayList<>();
         setHeuristic(graph);
-//        for (int i = 0; i < graph.nodes.size(); i++) {
-//            System.out.println(graph.nodes.get(i).name + " : " + graph.nodes.get(i).getHeuristic());
-//        }
-
         super.setHeuristic(graph);
     }
 
 
     public void search() {
         openList.add(root);
-
+        frontiersNum++;
         while (true) {
 
             if (openList.size() == 0) {
@@ -35,7 +31,7 @@ public class GreedyAlgorithm extends Problem {
             } else {
                 sort(openList);
                 Node temp = openList.remove(0);
-                System.out.println(temp.name);
+
                 closedList.add(temp);
                 boolean frontierExist;
                 boolean exploredExist;
@@ -61,11 +57,14 @@ public class GreedyAlgorithm extends Problem {
                     }
                     if (!frontierExist && !exploredExist) {
                         if (goalTest(child)) {
-                            System.out.println("Arrive in Bucharest");
+                            child.parentNode=temp;
+                            printValues(child);
+                            System.out.println(setPathCost(super.path));
                             return;
                         } else {
                             child.parentNode = temp;
                             openList.add(child);
+                            frontiersNum++;
                         }
 
 
@@ -91,6 +90,19 @@ public class GreedyAlgorithm extends Problem {
                 j = j - 1;
             }
             frontiers.set(j + 1, key);
+        }
+    }
+    public void printValues(Node goal) {
+        Node parent = goal;
+        System.out.println("Frontierss: " + frontiersNum);
+        System.out.println("Explored : " + closedList.size());
+        while (parent != root) {
+            super.path.add(parent);
+            parent = parent.parentNode;
+        }
+        super.path.add(root);
+        for (int i = path.size() - 1; i >= 0; i--) {
+            System.out.println(path.get(i).name);
         }
     }
 }

@@ -19,16 +19,6 @@ public class Problem {
     }
 
 
-//    public static Node setInitNode(Node init) {
-//        initialNode = init;
-//        return initialNode;
-//    }
-
-//    public Node setGoalNode(Node goal) {
-//        this.goal=goal;
-//        return goal;
-//    }
-
     public ArrayList<Edge> actions(Node currentState) {
         return currentState.connections;
     }
@@ -60,7 +50,14 @@ public class Problem {
     }
 
     public int setPathCost(ArrayList<Node> path) {
-        pathCost = path.get(0).cost;
+        int rode = 0;
+        for (int i = 0; i < path.get(1).connections.size(); i++) {
+            if (path.get(1).connections.get(i).end.name.equals(path.get(0).name)) {
+                rode = path.get(1).connections.get(i).cost;
+            }
+        }
+
+        pathCost = path.get(1).cost + rode;
         return pathCost;
     }
 

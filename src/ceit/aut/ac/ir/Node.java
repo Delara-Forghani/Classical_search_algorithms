@@ -19,19 +19,9 @@ public class Node {
 
     public void addAction(Node fatherName, Node childName, int cost) {
         connections.add(new Edge(fatherName, childName, cost));
-        //childName.parentNode = fatherName;
-
-
 
     }
 
-
-    public void printConnections() {
-        System.out.print(name + " :   ");
-        for (int i = 0; i < connections.size(); i++) {
-            System.out.print(connections.get(i).end.name + "*****");
-        }
-    }
 
     public void setHeuristic(int h) {
         this.heuristic = h;

@@ -11,6 +11,11 @@ public class GreedyAlgorithm extends Problem {
 
     public GreedyAlgorithm(Graph graph) {
         super(graph);
+        for (int i = 0; i < graph.nodes.size(); i++) {
+            for (int j = 0; j < graph.nodes.get(i).connections.size(); j++) {
+                graph.nodes.get(i).connections.get(j).setCost(1);
+            }
+        }
         root = super.initialNode;
         frontiersNum = 0;
         openList = new ArrayList<>();
@@ -20,7 +25,7 @@ public class GreedyAlgorithm extends Problem {
     }
 
 
-    public void search() {
+    public void search(boolean graphSearch) {
         openList.add(root);
         frontiersNum++;
         while (true) {
@@ -31,8 +36,9 @@ public class GreedyAlgorithm extends Problem {
             } else {
                 sort(openList);
                 Node temp = openList.remove(0);
-
-                closedList.add(temp);
+                if (graphSearch) {
+                    closedList.add(temp);
+                }
                 boolean frontierExist;
                 boolean exploredExist;
                 for (int i = 0; i < temp.connections.size(); i++) {
@@ -43,23 +49,26 @@ public class GreedyAlgorithm extends Problem {
                     for (int j = 0; j < openList.size(); j++) {
                         if (openList.get(j).name.equals(child.name)) {
                             openList.get(j).parentNode = temp;
+
                             frontierExist = true;
                             break;
                         }
 
                     }
-
-                    for (int j = 0; j < closedList.size(); j++) {
-                        if (closedList.get(j).name.equals(child.name)) {
-                            exploredExist = true;
-                            break;
+                    if (!graphSearch) {
+                        exploredExist = false;
+                    } else {
+                        for (int j = 0; j < closedList.size(); j++) {
+                            if (closedList.get(j).name.equals(child.name)) {
+                                exploredExist = true;
+                                break;
+                            }
                         }
                     }
                     if (!frontierExist && !exploredExist) {
                         if (goalTest(child)) {
-                            child.parentNode=temp;
+                            child.parentNode = temp;
                             printValues(child);
-                            System.out.println(setPathCost(super.path));
                             return;
                         } else {
                             child.parentNode = temp;
@@ -92,11 +101,12 @@ public class GreedyAlgorithm extends Problem {
             frontiers.set(j + 1, key);
         }
     }
+
     public void printValues(Node goal) {
         Node parent = goal;
         System.out.println("Frontierss: " + frontiersNum);
         System.out.println("Explored : " + closedList.size());
-        while (parent != root) {
+        while (!parent.name.equals(root.name)) {
             super.path.add(parent);
             parent = parent.parentNode;
         }

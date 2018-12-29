@@ -22,7 +22,7 @@ public class Graph {
 
     public Node getNode(String name) {
         for (int i = 0; i < nodes.size(); i++) {
-            if(nodes.get(i).name.equals(name)){
+            if (nodes.get(i).name.equals(name)) {
                 return nodes.get(i);
             }
         }

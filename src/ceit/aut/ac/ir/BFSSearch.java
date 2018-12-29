@@ -2,13 +2,14 @@ package ceit.aut.ac.ir;
 
 import java.util.ArrayList;
 
-public class DFSGraphSearch extends Problem {
+public class BFSSearch extends Problem {
     private Node root;
     private ArrayList<Node> openList;
     private ArrayList<Node> closedList;
     private int frontiersNum;
 
-    public DFSGraphSearch(Graph graph) {
+
+    public BFSSearch(Graph graph) {
         super(graph);
 
         for (int i = 0; i < graph.nodes.size(); i++) {
@@ -23,15 +24,17 @@ public class DFSGraphSearch extends Problem {
 
     }
 
-    public void search() {
+
+    public void search(boolean graphSearch) {
         boolean frontierExist;
         boolean exploredExist;
         if (goalTest(root)) {
-            System.out.println("Here is Bucharest");
+            System.out.println("Arrived in Bucharest");
             return;
         } else {
             openList.add(root);
             frontiersNum++;
+
         }
 
         while (true) {
@@ -39,29 +42,37 @@ public class DFSGraphSearch extends Problem {
                 System.out.println("failure");
                 return;
             } else {
-                Node temp = openList.remove(openList.size() - 1);
-                closedList.add(temp);
-
+                Node temp = openList.remove(0);
+                if (graphSearch) {
+                    closedList.add(temp);
+                }
                 for (int i = 0; i < temp.connections.size(); i++) {
                     frontierExist = false;
                     exploredExist = false;
                     Node child = temp.connections.get(i).getEnd();
+
+
                     for (int j = 0; j < openList.size(); j++) {
                         if (openList.get(j).name.equals(child.name)) {
                             frontierExist = true;
                             break;
                         }
                     }
-                    for (int j = 0; j < closedList.size(); j++) {
-                        if (closedList.get(j).name.equals(child.name)) {
-                            exploredExist = true;
-                            break;
+                    if (!graphSearch) {
+                        exploredExist = false;
+                    } else {
+                        for (int j = 0; j < closedList.size(); j++) {
+                            if (closedList.get(j).name.equals(child.name)) {
+                                exploredExist = true;
+                                break;
+
+                            }
                         }
                     }
                     if (!frontierExist && !exploredExist) {
                         if (goalTest(child)) {
-                            Edge currentEdge = temp.connections.get(i);
                             child.parentNode = temp;
+                            Edge currentEdge = temp.connections.get(i);
                             child.cost = temp.cost + stepCost(child.parentNode, currentEdge, child);
                             printValues(child);
                             System.out.println(setPathCost(super.path));
@@ -78,17 +89,16 @@ public class DFSGraphSearch extends Problem {
                 }
             }
         }
-
-
     }
 
+
     public void printValues(Node goal) {
-        Node parent = goal;
-        System.out.println("Frontiers : " + frontiersNum);
+        Node tempNode = goal;
+        System.out.println("Frontiers: " + frontiersNum);
         System.out.println("Explored: " + closedList.size());
-        while (parent != root) {
-            super.path.add(parent);
-            parent = parent.parentNode;
+        while (!tempNode.name.equals(root.name)) {
+            super.path.add(tempNode);
+            tempNode = tempNode.parentNode;
         }
         super.path.add(root);
         for (int i = path.size() - 1; i >= 0; i--) {

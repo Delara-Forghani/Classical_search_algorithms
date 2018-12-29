@@ -2,21 +2,21 @@ package ceit.aut.ac.ir;
 
 public class IterativeDeepeningDFS extends Problem {
     Node root;
-    DepthLimitedGraphSearch dls;
+    DepthLimitedSearch dls;
     String result;
 
-    public IterativeDeepeningDFS(Graph graph) {
+    public IterativeDeepeningDFS(Graph graph, boolean graphSearch) {
         super(graph);
         root = super.initialNode;
-        result = search(graph);
+        result = search(graph, graphSearch);
     }
 
-    public String search(Graph graph) {
+    public String search(Graph graph, boolean graphSearch) {
         int count = 0;
-        dls = new DepthLimitedGraphSearch(graph);
         while (true) {
+            dls = new DepthLimitedSearch(graph);
             dls.setLimit(count);
-            String temp = dls.search();
+            String temp = dls.search(graphSearch);
             if (!temp.equals("cutoff")) {
                 return temp;
             } else {

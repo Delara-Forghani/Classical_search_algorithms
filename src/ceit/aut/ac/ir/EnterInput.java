@@ -24,11 +24,9 @@ public class EnterInput {
                 for (int i = 0; i < graph.nodes.size(); i++) {
 
                     if (graph.nodes.get(i).name.equals(start.name)) {
-                        // graph.nodes.get(i).addAction(start, end, Integer.parseInt(stArr[2]));
                         firstExist = true;
                         firstIndex = i;
                     } else if (graph.nodes.get(i).name.equals(end.name)) {
-                        // graph.nodes.get(i).addAction(end, start, Integer.parseInt(stArr[2]));
                         secondExist = true;
                         secondIndex = i;
                     }

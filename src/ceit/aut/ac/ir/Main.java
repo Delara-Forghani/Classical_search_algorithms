@@ -8,31 +8,44 @@ public class Main {
         EnterInput input = new EnterInput("E:\\Computer_Network\\DiffernetSearchAlgorithms\\src\\ceit\\aut\\ac\\ir\\input.txt");
         Graph graph = input.getGraph();
         Problem problem = new Problem(graph);
-//        for (int i = 0; i < graph.nodes.size(); i++) {
-//            System.out.println(graph.nodes.get(i).name + " : "+ graph.nodes.get(i));
-//        }
-
-//        for (int i = 0; i < graph.nodes.size(); i++) {
-//            graph.nodes.get(i).printConnections();
-//            System.out.println();
-//        }
-
-//        BFSGraphSearch bfsGraphSearch = new BFSGraphSearch(graph);
-//        bfsGraphSearch.search();
-
-//        UniformCostGraphSearch uniformCostGraphSearch=new UniformCostGraphSearch(graph);
-//        uniformCostGraphSearch.search();
 
 
-        //  DFSGraphSearch dfsGraphSearch = new DFSGraphSearch(graph);
-        //  dfsGraphSearch.search();
+        //BFSSearch bfsGraphSearch = new BFSSearch(graph);
+        //bfsGraphSearch.search(true);
+        //BFSSearch bfsTreeSearch = new BFSSearch(graph);
+        //bfsTreeSearch.search(false);
+
+        //UniformCostSearch uniformCostGraphSearch = new UniformCostSearch(graph);
+        //uniformCostGraphSearch.search(true);
+        //UniformCostSearch uniformCostTreeSearch = new UniformCostSearch(graph);
+        //uniformCostTreeSearch.search(false);
+
+//        DFSSearch dfsGraphSearch = new DFSSearch(graph);
+//        dfsGraphSearch.search(true);
+//        DFSSearch dfsTreeSearch = new DFSSearch(graph);
+        //       dfsTreeSearch.search(false);
+
+        // GreedyAlgorithm greedyAlgorithmGS = new GreedyAlgorithm(graph);
+        // greedyAlgorithmGS.search(true);
+        // GreedyAlgorithm greedyAlgorithmTS = new GreedyAlgorithm(graph);
+        // greedyAlgorithmTS.search(false);
+
+        // AStarSearch aStarGraphSearch = new AStarSearch(graph);
+        // aStarGraphSearch.search(true);
+        // AStarSearch aStarTreeSearch = new AStarSearch(graph);
+        // aStarTreeSearch.search(false);
 
 
-        // GreedyAlgorithm greedyAlgorithm = new GreedyAlgorithm(graph);
-        // greedyAlgorithm.search();
+        // DepthLimitedSearch limitedGraphSearch = new DepthLimitedSearch(graph);
+        // limitedGraphSearch.setLimit(3);
+        // limitedGraphSearch.search(true);
 
-        AStarGraphSearch aStarGraphSearch=new AStarGraphSearch(graph);
-        aStarGraphSearch.search();
+//        DepthLimitedSearch limitedTreeSearch = new DepthLimitedSearch(graph);
+//        limitedTreeSearch.setLimit(3);
+//        limitedTreeSearch.search(false);
+
+        // IterativeDeepeningDFS iterativeDeepGraphDFS = new IterativeDeepeningDFS(graph,true);
+        // IterativeDeepeningDFS iterativeDeepTreeDFS = new IterativeDeepeningDFS(graph,false);
     }
 
 }

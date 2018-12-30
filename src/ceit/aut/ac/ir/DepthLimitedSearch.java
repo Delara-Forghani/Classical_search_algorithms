@@ -105,6 +105,7 @@ public class DepthLimitedSearch extends Problem {
         Node parent = goal;
         System.out.println("Frontierss : " + frontiersNum);
         System.out.println("Explored: " + closedList.size());
+        System.out.println("Allocated memory size in the end: " + (openList.size() + closedList.size()));
         while (!parent.name.equals(root.name)) {
             super.path.add(parent);
             parent = parent.parentNode;

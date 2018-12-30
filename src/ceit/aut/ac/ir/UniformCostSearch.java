@@ -97,6 +97,7 @@ public class UniformCostSearch extends Problem {
         for (int i = path.size() - 1; i >= 0; i--) {
             System.out.println(path.get(i).name);
         }
+        System.out.println("Allocated memory size in the end: " + (openList.size() + closedList.size()));
     }
 
     void sort(ArrayList<Node> list) {

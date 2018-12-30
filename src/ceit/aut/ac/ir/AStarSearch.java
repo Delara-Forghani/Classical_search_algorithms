@@ -106,6 +106,7 @@ public class AStarSearch extends Problem {
         Node parent = goal;
         System.out.println("frontiers: " + frontiersNum);
         System.out.println("Explored : " + closedList.size());
+        System.out.println("Allocated memory size in the end: " + (openList.size() + closedList.size()));
         while (!parent.name.equals(root.name)) {
             super.path.add(parent);
             parent = parent.parentNode;
@@ -115,6 +116,4 @@ public class AStarSearch extends Problem {
             System.out.println(path.get(i).name);
         }
     }
-
-
 }

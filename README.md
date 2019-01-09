@@ -1,7 +1,7 @@
 # Classical_search_algorithms
 This repository consists of an implementation of all classical search algorithms.
 These algorithms are mentioned in chapter 3 of "Artificial Intelligence: A Modern Approach" and my implementations are based on the
-descriptions of the reference.<br />
+descriptions of this book.<br />
 <br />
 The problem is to traverse the map of Romania from Arad(Source) to Bucharest(destination) using all classical search algorithms.<br />
 <br />
